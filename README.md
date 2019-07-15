@@ -29,21 +29,11 @@ You should now be ready to [build](#building) or [run](#running) STF.
 
 Note that while Mac OS can be used for development, it doesn't provide a very reliable experience in production due to (presumed) bugs in ADB's Mac OS implementation. We use [CoreOS](https://coreos.com/) but any Linux or BSD distribution should do fine.
 
-## Installation
-
-As mentioned earlier, you must have all of the [requirements](#requirements) installed first. Then you can simply install via NPM:
-
-```bash
-npm install -g stf
-```
-
-Now you're ready to [run](#running). For development, though, you should [build](#building) instead.
-
 ## Building
 
 After you've got all the [requirements](#requirements) installed, it's time to fetch the rest of the dependencies.
 
-First, fetch all NPM and Bower modules:
+First, clone stf sources and fetch all NPM and Bower modules:
 
 ```bash
 npm install
