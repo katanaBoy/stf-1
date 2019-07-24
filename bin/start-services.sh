@@ -3,7 +3,7 @@
 SCRIPT_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
 cd ${SCRIPT_PATH};
 
-PUBLIC_IP=192.168.89.157
+PUBLIC_IP=localhost
 
 ENV_LOCAL=0
 MIGRATE=0

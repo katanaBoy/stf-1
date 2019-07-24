@@ -155,7 +155,7 @@ TODO: redesign latesr to remove iosdevice.json! Then you should add your devices
 
 The json file should look like this:
 
-```bash
+```json
 {
   "udid device" : {
     "ip adress device" : "0.0.0.0",
