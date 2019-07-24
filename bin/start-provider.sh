@@ -4,6 +4,9 @@ cd ${SCRIPT_PATH};
 
 PUBLIC_IP=localhost
 
+#TODO: Move it to .env
+export IOS_DEVICES_JSON_PATH='/Users/shov/Projects/Shov/stf/iosdevice.json'
+
 nohup stf ios-provider  \
     --name iMac-Developer.local  \
     --min-port 7701 --max-port 7900 \
