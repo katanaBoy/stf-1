@@ -19,12 +19,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
       }
     }
 
-    function treeListener(someChannel, data) {
-      if (someChannel === channel) {
-        pending[data.source].done(data)
-      }
-    }
-
     function progressListener(someChannel, data) {
       if (someChannel === channel) {
         pending[data.source].progress(data)
@@ -39,7 +33,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
       }
     }
 
-    socket.on('tx.tree', treeListener)
     socket.on('tx.done', doneListener)
     socket.on('tx.progress', progressListener)
     socket.on('tx.cancel', cancelListener)
@@ -55,7 +48,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
       }))
       .finally(function() {
         socket.removeListener('tx.done', doneListener)
-        socket.removeListener('tx.tree', treeListener)
         socket.removeListener('tx.progress', progressListener)
         socket.removeListener('tx.cancel', cancelListener)
         socket.emit('tx.cleanup', channel)
@@ -79,12 +71,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
       }
     }
 
-    function treeListener(someChannel, data) {
-      if (someChannel === channel) {
-        pending.done(data)
-      }
-    }
-
     function progressListener(someChannel, data) {
       if (someChannel === channel) {
         pending.progress(data)
@@ -97,7 +83,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
       }
     }
 
-    socket.on('tx.tree', treeListener)
     socket.on('tx.done', doneListener)
     socket.on('tx.progress', progressListener)
     socket.on('tx.cancel', cancelListener)
@@ -108,7 +93,6 @@ module.exports = function TransactionServiceFactory(socket, TransactionError) {
     this.promise = pending.promise
       .finally(function() {
         socket.removeListener('tx.done', doneListener)
-        socket.removeListener('tx.tree', treeListener)
         socket.removeListener('tx.progress', progressListener)
         socket.removeListener('tx.cancel', cancelListener)
         socket.emit('tx.cleanup', channel)

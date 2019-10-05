@@ -1,7 +1,3 @@
-var io = require('socket.io')
-var socket = io('localhost:7110', {
-  reconnection: false, transports: ['websocket']
-})
 module.exports = function ScreenshotsCtrl($scope) {
   $scope.screenshots = []
   $scope.screenShotSize = 400

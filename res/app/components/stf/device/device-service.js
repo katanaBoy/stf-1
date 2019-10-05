@@ -2,7 +2,7 @@ var oboe = require('oboe')
 var _ = require('lodash')
 var EventEmitter = require('eventemitter3')
 
-module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceService, $rootScope) {
+module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceService) {
   var deviceService = {}
 
   function Tracker($scope, options) {
@@ -102,7 +102,7 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
         .then(function(device) {
           return changeListener({
             important: true
-            , data: device
+          , data: device
           })
         })
         .catch(function() {})
@@ -141,33 +141,14 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
       }
     }
 
-    function applicationsChangeListener(event) {
-      var device = get(event.data)
-      if(device) {
-        modify(device, event.data)
-        notify(event)
-        if(event.data.applications) {
-          $rootScope.$broadcast('onInstallApps', event.data.applications)
-        }
-      } else {
-        if (options.filter(event.data)) {
-          insert(event.data)
-          // We've only got partial data
-          fetch(event.data)
-          notify(event)
-        }
-      }
-    }
-
     scopedSocket.on('device.add', addListener)
     scopedSocket.on('device.remove', changeListener)
     scopedSocket.on('device.change', changeListener)
-    scopedSocket.on('device.applications', applicationsChangeListener)
 
     this.add = function(device) {
       addListener({
         important: true
-        , data: device
+      , data: device
       })
     }
 
@@ -181,7 +162,7 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
       filter: function() {
         return true
       }
-      , digest: false
+    , digest: false
     })
 
     oboe('/api/v1/devices')
@@ -197,7 +178,7 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
       filter: function(device) {
         return device.using
       }
-      , digest: true
+    , digest: true
     })
 
     oboe('/api/v1/user/devices')
@@ -220,7 +201,7 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
       filter: function(device) {
         return device.serial === serial
       }
-      , digest: true
+    , digest: true
     })
 
     return deviceService.load(serial)
@@ -228,10 +209,6 @@ module.exports = function DeviceServiceFactory($http, socket, EnhanceDeviceServi
         tracker.add(device)
         return device
       })
-  }
-
-  deviceService.getBySerial = function(serial) {
-    return devices[devicesBySerial[serial]]
   }
 
   deviceService.updateNote = function(serial, note) {

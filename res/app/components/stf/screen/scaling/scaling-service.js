@@ -109,8 +109,10 @@ module.exports = function ScalingServiceFactory() {
         else {
           // covers the area vertically
           scaledValue = h * realRatio
+
           // adjust x to start from the scaled left edge
           x -= (w - scaledValue) / 2
+
           // not touching the screen, but we want to trigger certain events
           // (like touchup) anyway, so let's do it on the edges.
           if (x < 0) {
@@ -130,6 +132,7 @@ module.exports = function ScalingServiceFactory() {
 
           w = scaledValue
         }
+
         return {
           xP: x / w
         , yP: y / h
